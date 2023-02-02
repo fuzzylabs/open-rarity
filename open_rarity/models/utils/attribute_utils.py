@@ -14,4 +14,4 @@ def normalize_attribute_string(value: str) -> str:
     str
         normalized string
     """
-    return value.lower().strip()
+    return str(value).lower().strip()

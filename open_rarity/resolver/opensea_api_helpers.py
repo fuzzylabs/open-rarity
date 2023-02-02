@@ -2,6 +2,7 @@ import json
 import logging
 import math
 import os
+import pathlib
 
 import requests
 from requests.models import HTTPError
@@ -404,6 +405,11 @@ def get_cache_filename(slug: str) -> str:
 
 def write_collection_data_to_file(slug: str, tokens: list[Token]):
     cache_filename = get_cache_filename(slug)
+    # create directory if not exists
+    if not os.path.exists(os.path.dirname(cache_filename)):
+        cache_filename_path = pathlib.Path(cache_filename)
+        cache_filename_path.parent.mkdir(parents=True, exist_ok=True)
+
     json_output = []
     for token in tokens:
         # Note: We assume EVM token here
